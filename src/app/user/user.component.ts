@@ -1,13 +1,7 @@
 import {
   Component,
-  computed,
-  signal,
-  Signal,
-  WritableSignal
+  Input,
 } from '@angular/core';
-
-import { DUMMY_USERS } from '../dummy-users';
-import { User } from './user.interface';
 
 @Component({
   selector: 'app-user',
@@ -18,17 +12,17 @@ import { User } from './user.interface';
 })
 
 export class UserComponent {
-  selectedUser: WritableSignal<User> = signal(this.getRandomUser())
+  @Input({ required: true }) avatar!: string;
+  @Input({ required: true }) name!: string;
 
-  avatarSrc: Signal<string> = computed(() => `assets/users/${this.selectedUser().avatar}`)
-  altText: Signal<string> = computed(() => `${this.selectedUser().name} Avatar`)
+  get avatarSrc(): string {
+    return `assets/users/${this.avatar}`
+  }
 
-  private getRandomUser(): User {
-    const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
-    return DUMMY_USERS[randomIndex];
+  get altText(): string {
+    return `${this.name} Avatar`
   }
 
   onSelectUser(): void {
-    this.selectedUser.set(this.getRandomUser());
   }
 }

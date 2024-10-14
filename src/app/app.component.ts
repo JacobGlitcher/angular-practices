@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 
 import { HeaderComponent } from './header/header.component';
 import { UserComponent } from './user/user.component';
+import { DUMMY_USERS } from './dummy-users';
+import { User } from './user/user.interface';
 
 @Component({
   selector: 'app-root',
@@ -11,4 +13,6 @@ import { UserComponent } from './user/user.component';
   styleUrl: './app.component.scss'
 })
 
-export class AppComponent {}
+export class AppComponent {
+  users: User[] = DUMMY_USERS
+}
